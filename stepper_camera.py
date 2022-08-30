@@ -6,7 +6,7 @@ the length of time the resulting video should last (seconds). Also provide the a
 samples to be photographed are at.
 
 '''
-
+import os
 
 import RPi.GPIO as GPIO
 import time
@@ -66,7 +66,7 @@ def sleep_table(p):
 def get_picture(frame_id, angle):
     fname ="angle_" + str(angle) + str(frame_id).zfill(6) + ".jpg"
     cmd = "/usr/local/bin/libcamera-still --nopreview -o  {} -width 1280 -height 960".format(fname)
-    subprocess.call(cmd)
+    os.system(cmd)
 
 
 for f in range(NUM_FRAMES):
