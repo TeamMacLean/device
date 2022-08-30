@@ -80,7 +80,7 @@ for f in range(NUM_FRAMES):
         print("getting picture")
         get_picture(f,a)
     print("lamp off...")
-    lamp_off(pixels
+    lamp_off(pixels)
     print("sleeping table...")
     sleep_table(p)
     print("waiting for " + str(FRAME_INTERVAL) + " seconds")
