@@ -65,7 +65,7 @@ def sleep_table(p):
 
 def get_picture(frame_id, angle):
     fname ="angle_" + str(angle) + str(frame_id).zfill(6) + ".jpg"
-    cmd = "libcamera-jpeg --nopreview -o  {} -width 1280 -height 960".format(fname)
+    cmd = "libcamera-still --nopreview -o  {} -width 1280 -height 960".format(fname)
     subprocess.call(cmd)
 
 
