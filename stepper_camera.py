@@ -28,8 +28,6 @@ ANGLES = (0,180) #positions in degrees the subjects will be at on the turntable
 ## setup hardware
 pixels = neopixel.NeoPixel(board.D18, 8) #connected to Pi at pin 18, has 8 LED's
 TABLE_PIN=25
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(TABLE_PIN, GPIO.OUT)
 
 
 #p = GPIO.PWM(TABLE_PIN, 50)
@@ -49,6 +47,8 @@ def get_dc_from_angle(angle, pulse_min=1, pulse_max=12):
 
 
 def wake_table(pin):
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(TABLE_PIN, GPIO.OUT)
     p = GPIO.PWM(pin, 50)
     p.start(1)
     return p
@@ -80,7 +80,7 @@ for f in range(NUM_FRAMES):
         print("getting picture")
         get_picture(f,a)
     print("lamp off...")
-    lamp_off(pixels)
+    lamp_off(pixels
     print("sleeping table...")
     sleep_table(p)
     print("waiting for " + str(FRAME_INTERVAL) + " seconds")
