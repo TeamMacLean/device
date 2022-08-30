@@ -65,7 +65,7 @@ def sleep_table(p):
 
 def get_picture(frame_id, angle):
     fname ="angle_" + str(angle) + str(frame_id).zfill(6) + ".jpg"
-    cmd = "/usr/local/bin/libcamera-still --nopreview -o  {} --autofocus".format(fname)
+    cmd = "/usr/local/bin/libcamera-still -t 5000 --nopreview -o  {} --autofocus".format(fname)
     os.system(cmd)
 
 
