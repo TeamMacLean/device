@@ -61,7 +61,7 @@ def move_table(p, angle):
 
 def sleep_table(p):
     p.stop()
-    GPIO.cleanup()
+
 
 def get_picture(frame_id, angle):
     fname ="angle_" + str(angle) + str(frame_id).zfill(6) + ".jpg"
@@ -69,36 +69,33 @@ def get_picture(frame_id, angle):
     os.system(cmd)
 
 
-for f in range(NUM_FRAMES):
+
+
+try:
     print("waking table...")
     p = wake_table(TABLE_PIN)
-    print("lamp on...")
-    lamp_on(pixels)
-    for a in ANGLES:
-        print("moving to" + str(a))
-        move_table(p, a)
-        print("getting picture")
-        get_picture(f,a)
-    print("lamp off...")
-    lamp_off(pixels)
+
+
+    for f in range(NUM_FRAMES):
+
+        print("lamp on...")
+        lamp_on(pixels)
+        for a in ANGLES:
+            print("moving to" + str(a))
+            move_table(p, a)
+            print("getting picture")
+            get_picture(f,a)
+        print("lamp off...")
+        lamp_off(pixels)
+        print("waiting for " + str(FRAME_INTERVAL) + " seconds")
+        time.sleep(FRAME_INTERVAL)
+
     print("sleeping table...")
     sleep_table(p)
-    print("waiting for " + str(FRAME_INTERVAL) + " seconds")
-    time.sleep(FRAME_INTERVAL)
-
-#try:
-#    while True:
-        #start table.
-        #set to position 0
-            #light scene
-            #take picture
-        #move to position 1..
-        #repeat to all positions
-        #move to position 0
-        #shut down table
 
 
-#except KeyboardInterrupt:
-#    p.stop()
-
-#GPIO.cleanup()
+except KeyboardInterrupt:
+    pass
+finally:
+    p.stop()
+    GPIO.cleanup()
