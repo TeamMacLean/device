@@ -37,10 +37,10 @@ GPIO.setup(TABLE_PIN, GPIO.OUT)
 
 
 def lamp_on(pixels):
-    pixels[0:7] = (255, 255, 255)
+    pixels.fill( (255, 255, 255))
 
 def lamp_off(pixels):
-    pixels[0:7] = (0,0,0)
+    pixels.fill((0,0,0))
 
 
 def get_dc_from_angle(angle, pulse_min=1, pulse_max=12):
