@@ -49,7 +49,7 @@ def get_dc_from_angle(angle, pulse_min=1, pulse_max=12):
 
 
 def wake_table(pin):
-    p = GPIO.PWM(TABLE_PIN, 50)
+    p = GPIO.PWM(pin, 50)
     p.start(1)
     return p
 
@@ -61,7 +61,7 @@ def move_table(p, angle):
 
 def sleep_table(p):
     p.stop()
-
+    GPIO.cleanup()
 
 def get_picture(frame_id, angle):
     fname ="angle_" + str(angle) + str(frame_id).zfill(6) + ".jpg"
@@ -70,13 +70,20 @@ def get_picture(frame_id, angle):
 
 
 for f in range(NUM_FRAMES):
+    print("waking table...")
     p = wake_table(TABLE_PIN)
+    print("lamp on...")
     lamp_on(pixels)
     for a in ANGLES:
+        print("moving to" + str(a))
         move_table(p, a)
+        print("getting picture")
         get_picture(f,a)
+    print("lamp off...")
     lamp_off(pixels)
+    print("sleeping table...")
     sleep_table(p)
+    print("waiting for " + str(FRAME_INTERVAL) + " seconds")
     time.sleep(FRAME_INTERVAL)
 
 #try:
@@ -94,4 +101,4 @@ for f in range(NUM_FRAMES):
 #except KeyboardInterrupt:
 #    p.stop()
 
-GPIO.cleanup()
+#GPIO.cleanup()
